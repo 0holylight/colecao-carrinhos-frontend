@@ -1,6 +1,6 @@
-import { Outlet, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import api from '../services/api.js';
+import { Outlet, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import api from "../services/api.js";
 
 function ProtectedRoute() {
   const [check, setCheck] = useState(true);
@@ -9,9 +9,10 @@ function ProtectedRoute() {
   useEffect(() => {
     async function verificarLogin() {
       try {
-        await api.get('/carros');
+        await api.get("/carros");
         setAuth(true);
       } catch (e) {
+        console.log(e);
         setAuth(false);
       } finally {
         setCheck(false);
