@@ -26,7 +26,7 @@ function ProtectedRoute() {
     }
 
     verificarLogin();
-  }, []);
+  }, [dispatch]);
 
   if (check) {
     return <p>Carregando...</p>;
