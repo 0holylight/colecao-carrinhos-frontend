@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../store/slices/authSlice.js";
 
-
 import api from "../services/api.js";
 
 function Register() {
@@ -22,18 +21,29 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [erro, setErro] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     setErro("");
+    setErroSenha("");
+    if (password !== confirmPassword) {
+      setErroSenha("As senhas não coincidem");
+      console.log("As senhas não coincidem.");
+      return;
+    }
     try {
-      const resposta = await api.post("/tokens", { username, password });
+      const resposta = await api.post("/usuarios", {
+        name,
+        username,
+        password,
+      });
       dispatch(login(resposta.data.user));
       navigate("/carros");
       console.log("Usuário registrado com sucesso! Boas vindas à sua coleção!");
     } catch (e) {
       console.log(e);
-      setErro("Usuário ou senha incorretos.");
+      setErro(e?.response?.data?.message || "Mensagem");
     }
   }
 
@@ -66,6 +76,7 @@ function Register() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         ></input>
+        {erroSenha && <p>{erroSenha}</p>}
         <button type="submit">Registrar</button>
         {erro && <p>{erro}</p>}
       </form>

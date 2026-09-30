@@ -1,6 +1,7 @@
 import Carros from './pages/Carros.jsx';
 import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
+import Register from './pages/Register.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -10,6 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/carros" element={<Carros />} />
         </Route>
