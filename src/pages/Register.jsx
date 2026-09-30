@@ -43,7 +43,10 @@ function Register() {
       console.log("Usuário registrado com sucesso! Boas vindas à sua coleção!");
     } catch (e) {
       console.log(e);
-      setErro(e?.response?.data?.message || "Mensagem");
+      setErro(
+        e?.response?.data?.message ||
+          "Há algum erro no seu formulário de registro, tente novamente em instantes.",
+      );
     }
   }
 

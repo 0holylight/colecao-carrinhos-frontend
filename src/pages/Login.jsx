@@ -21,7 +21,10 @@ function Login() {
       navigate("/carros");
     } catch (e) {
       console.log(e);
-      setErro("Usuário ou senha incorretos.");
+      setErro(
+        e?.response?.data?.message ||
+          "Ocorreu um erro com o Login, tente novamente em instantes.",
+      );
     }
   }
 
