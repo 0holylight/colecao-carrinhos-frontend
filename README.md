@@ -63,4 +63,4 @@ A aplicação abre em `http://localhost:5173`.
 
 ## Autor
 
-**Guilherme Almeida** · [LinkedIn](https://www.linkedin.com/in/guilherme-almeida-2bbb08422/)
+**Guilherme Almeida** · [LinkedIn](https://www.linkedin.com/in/guilherme-almeida00/)
