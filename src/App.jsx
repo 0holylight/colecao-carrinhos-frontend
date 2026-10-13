@@ -4,7 +4,6 @@ import Home from './pages/Home.jsx';
 import Register from './pages/Register.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { Routes, Route } from 'react-router-dom';
-// import './App.css';
 
 function App() {
   return (
