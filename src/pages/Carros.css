@@ -1,0 +1,83 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ===== Card ===== */
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--cor-card);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: 16px;
+  padding: 28px 28px 20px;
+  backdrop-filter: blur(2px);      /* esmaece levemente o grid atrás do card */
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.grid-item:hover {
+  box-shadow: var(--brilho-magenta);
+  transform: translateY(-4px);
+}
+
+/* ===== Nome ===== */
+.grid-item h2 {
+  font-weight: 500;
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--cor-texto);
+  margin: 0 0 16px;
+}
+
+/* ===== Foto ===== */
+.grid-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--cor-foto);
+}
+
+/* ===== Infos ===== */
+.main-infos {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.main-infos p {
+  margin: 2px 0;
+  font-size: 1.05rem;
+  color: var(--cor-azul);
+}
+
+/* ===== Coleção ===== */
+.collection {
+  margin-top: auto;
+  padding-top: 20px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--cor-magenta);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-item,
+  .grid-item:hover { transition: none; transform: none; }
+}
