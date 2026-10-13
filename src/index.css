@@ -1,20 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,500&display=swap");
 
 :root {
-  --cor-fundo: #040a2b;
-  --cor-card: rgba(10, 18, 60, 0.55);
-  --cor-linha-grid: rgba(150, 20, 130, 0.35);
-  --cor-borda: #8c1470;
-  --cor-magenta: #c21a8f;
-  --cor-azul: #2f62d8;
+  --cor-fundo: #0a0f1f;
+  --cor-card: rgba(16, 24, 48, 0.7);
+  --cor-linha-grid: rgba(255, 140, 0, 0.16);
+  --cor-borda: #ff7a00;
+  --cor-info: #4da3ff;
+  --cor-colecao: #ff9a3c;
   --cor-foto: #000;
-  --cor-texto: #e8ecf8;
-
-  --brilho-magenta: 0 0 10px rgba(194, 26, 143, 0.45), 0 0 28px rgba(194, 26, 143, 0.2);
-
+  --cor-texto: #eef2fb;
+  --brilho: 0 0 10px rgba(255, 122, 0, 0.45), 0 0 28px rgba(255, 122, 0, 0.2);
   --fonte: "Poppins", system-ui, sans-serif;
 }
-
 *,
 *::before,
 *::after {

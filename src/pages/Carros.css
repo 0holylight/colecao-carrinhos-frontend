@@ -20,7 +20,7 @@
 }
 
 .grid-item:hover {
-  box-shadow: var(--brilho-magenta);
+  box-shadow: var(--brilho);
   transform: translateY(-4px);
 }
 
@@ -50,7 +50,7 @@
 .main-infos p {
   margin: 2px 0;
   font-size: 1.05rem;
-  color: var(--cor-azul);
+  color: var(--cor-info);
 }
 
 /* ===== Coleção ===== */
@@ -61,7 +61,7 @@
   font-style: italic;
   font-weight: 500;
   font-size: 1.2rem;
-  color: var(--cor-magenta);
+  color: var(--cor-colecao);
 }
 
 /* ===== Responsivo ===== */
