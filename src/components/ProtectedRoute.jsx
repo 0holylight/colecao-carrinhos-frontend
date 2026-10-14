@@ -1,38 +1,15 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../store/slices/authSlice.js";
-
-import api from "../services/api.js";
+import { useSelector } from "react-redux";
 
 function ProtectedRoute() {
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const checked = useSelector((state) => state.auth.checked);
 
-  const [check, setCheck] = useState(true);
-  const [auth, setAuth] = useState(false);
-
-  useEffect(() => {
-    async function verificarLogin() {
-      try {
-        const resposta = await api.get("/usuarios/me");
-        setAuth(true);
-        dispatch(login(resposta.data.user));
-      } catch (e) {
-        console.log(e);
-        setAuth(false);
-      } finally {
-        setCheck(false);
-      }
-    }
-
-    verificarLogin();
-  }, [dispatch]);
-
-  if (check) {
+  if (!checked) {
     return <p>Carregando...</p>;
   }
 
-  return auth ? <Outlet /> : <Navigate to="/login" />;
+  return user ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default ProtectedRoute;
