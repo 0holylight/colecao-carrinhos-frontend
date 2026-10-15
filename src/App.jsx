@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import Register from "./pages/Register.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout.jsx";
+import GuestRoute from "./components/GuestRoute.jsx";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -30,8 +31,10 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route element={<GuestRoute />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
           <Route element={<ProtectedRoute />}>
             <Route path="/carros" element={<Carros />} />
           </Route>

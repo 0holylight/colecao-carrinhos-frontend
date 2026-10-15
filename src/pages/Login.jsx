@@ -18,7 +18,7 @@ function Login() {
     try {
       const resposta = await api.post("/tokens", { username, password });
       dispatch(login(resposta.data.user));
-      navigate("/carros");
+      navigate("/carros", { replace: true });
     } catch (e) {
       console.log(e);
       setErro(

@@ -39,7 +39,7 @@ function Register() {
         password,
       });
       dispatch(login(resposta.data.user));
-      navigate("/carros");
+      navigate("/carros", { replace: true });
       console.log("Usuário registrado com sucesso! Boas vindas à sua coleção!");
     } catch (e) {
       console.log(e);
