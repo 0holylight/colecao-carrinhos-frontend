@@ -15,9 +15,6 @@ function Layout() {
   async function sair() {
     try {
       await api.delete("/tokens");
-      // navigate("/");
-      // dispatch(logout());
-      // dispatch(setCars([]));
       window.location.href = "/";
     } catch (e) {
       console.log(e);
