@@ -1,14 +1,9 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../store/slices/authSlice.js";
-import { setCars } from "../store/slices/carSlice.js";
+import { Outlet, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import api from "../services/api.js";
 
 function Layout() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const user = useSelector((state) => state.auth.user);
   const checked = useSelector((state) => state.auth.checked);
 
