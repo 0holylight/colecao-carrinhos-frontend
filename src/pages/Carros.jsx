@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, edit, remove, setCars } from "../store/slices/carSlice.js";
-import "./Carros.css"
+import "./Carros.css";
 
 import api from "../services/api.js";
 
@@ -34,7 +34,11 @@ function Carros() {
         {colecao.map((carro) => (
           <div className="grid-item" key={carro.id}>
             <img
-              src={carro.photoUrl ? `${baseUrl}/uploads/${carro.photoUrl}` : "/wheel.svg"}
+              src={
+                carro.photoUrl
+                  ? `${baseUrl}/uploads/${carro.photoUrl}`
+                  : "/wheel.svg"
+              }
               alt={carro.name}
             />
             <div className="main-infos">
@@ -42,7 +46,9 @@ function Carros() {
               <p>{carro.color}</p>
               <p>{carro.year}</p>
             </div>
-            {carro.collection && <p className="collection">{carro.collection}</p>}
+            {carro.collection && (
+              <p className="collection">{carro.collection}</p>
+            )}
           </div>
         ))}
       </div>
