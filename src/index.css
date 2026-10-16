@@ -38,3 +38,67 @@ h1 {
   margin: 48px 0 8px;
   text-shadow: var(--brilho-magenta);
 }
+
+/* ===== Botões (reutilizáveis no resto do app) ===== */
+.btn-primario,
+.btn-secundario {
+  font-family: var(--fonte);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.btn-primario {
+  background: var(--cor-borda);
+  color: var(--cor-fundo);
+  border: 1.5px solid var(--cor-borda);
+}
+
+.btn-primario:hover {
+  box-shadow: var(--brilho);
+  transform: translateY(-1px);
+}
+
+.btn-secundario {
+  background: transparent;
+  color: var(--cor-texto);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secundario:hover {
+  border-color: var(--cor-info);
+  color: var(--cor-info);
+}
+
+.btn-primario:focus-visible,
+.btn-secundario:focus-visible {
+  outline: 2px solid var(--cor-info);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primario,
+  .btn-secundario {
+    transition: none;
+  }
+}
+
+.home-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.btn-primario,
+.btn-secundario {
+  display: inline-block;
+  text-decoration: none;
+}

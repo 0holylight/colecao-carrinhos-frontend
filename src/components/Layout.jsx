@@ -1,5 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "./Layout.css";
 
 import api from "../services/api.js";
 
@@ -19,22 +20,31 @@ function Layout() {
 
   return (
     <>
-      <header>
-        Coleção de Carrinhos
-        {checked &&
-          (user ? (
-            <>
-              <Link to="/carros">Minha coleção</Link>
-              <button onClick={sair}>Sair</button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Registro</Link>
-            </>
-          ))}
+      <header className="cabecalho">
+        <Link to="/" className="marca">
+          Coleção de Carrinhos
+        </Link>
+        {checked && (
+          <nav className="nav">
+            {user ? (
+              <>
+                <Link to="/carros">Minha coleção</Link>
+                <button className="btn-secundario" onClick={sair}>
+                  Sair
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Entrar</Link>
+                <Link to="/register" className="btn-primario">
+                  Criar conta
+                </Link>
+              </>
+            )}
+          </nav>
+        )}
       </header>
-      <main>
+      <main className="conteudo">
         <Outlet />
       </main>
     </>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../store/slices/authSlice.js";
+import { Link } from "react-router-dom";
+import "./Auth.css";
 
 import api from "../services/api.js";
 
@@ -29,26 +31,39 @@ function Login() {
   }
 
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        Login
+    <div className="auth">
+      <h1>Entrar</h1>
+
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <label htmlFor="username">Usuário</label>
         <input
+          id="username"
           type="text"
           placeholder="collector123"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        ></input>
+        />
+
+        <label htmlFor="password">Senha</label>
         <input
+          id="password"
           type="password"
-          placeholder="*******"
+          placeholder="••••••••"
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button type="submit">Entrar</button>
-        {erro && <p>{erro}</p>}
+        />
+
+        {erro && <p className="auth-erro">{erro}</p>}
+
+        <button type="submit" className="btn-primario">Entrar</button>
       </form>
-    </>
+
+      <p className="auth-rodape">
+        Ainda não tem conta? <Link to="/register">Criar conta</Link>
+      </p>
+    </div>
   );
 }
 

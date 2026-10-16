@@ -1,0 +1,77 @@
+/* ===== Cabeçalho ===== */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: rgba(10, 15, 31, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 122, 0, 0.25);
+}
+
+.marca {
+  font-family: var(--fonte);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--cor-texto);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.marca:hover {
+  color: var(--cor-borda);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav a:not(.btn-primario) {
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav a:not(.btn-primario):hover {
+  color: var(--cor-info);
+}
+
+.nav .btn-primario {
+  text-decoration: none;
+}
+
+/* ===== Área das páginas ===== */
+.conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  overflow-wrap: break-word;
+}
+
+/* ===== Celular ===== */
+@media (max-width: 520px) {
+  .cabecalho { padding: 12px 16px; }
+  .marca { font-size: 1rem; }
+  .nav { gap: 12px; }
+  .conteudo { padding: 0 16px 40px; }
+}
+
+@media (max-width: 420px) {
+  .cabecalho {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 10px;
+  }
+
+  .nav .btn-primario,
+  .nav .btn-secundario {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}

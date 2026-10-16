@@ -1,15 +1,8 @@
-/* Pensamentos sobre esse documento:
-Imports: useState com certeza, Dispatch com certeza, Navigate com certeza, 
-login me tá fazendo pensar, porque ao registrar eu posso proceder o login
-
-api com certeza
-
-*/
-
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/slices/authSlice.js";
+import "./Auth.css";
 
 import api from "../services/api.js";
 
@@ -51,39 +44,62 @@ function Register() {
   }
 
   return (
-    <>
-      <h1>Formulário de Registro</h1>
-      <form onSubmit={handleSubmit}>
-        Registre-se!
+    <div className="auth">
+      <h1>Criar conta</h1>
+
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <label htmlFor="name">Nome</label>
         <input
+          id="name"
           type="text"
           placeholder="Gabriel"
+          autoComplete="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        ></input>
+        />
+
+        <label htmlFor="username">Usuário</label>
         <input
+          id="username"
           type="text"
           placeholder="gabrielgpop"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        ></input>
+        />
+
+        <label htmlFor="password">Senha</label>
         <input
+          id="password"
           type="password"
-          placeholder="Insira uma senha"
+          placeholder="Mínimo de 8 caracteres"
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        ></input>
+        />
+
+        <label htmlFor="confirmPassword">Confirmar senha</label>
         <input
+          id="confirmPassword"
           type="password"
-          placeholder="Repita a senha inserida"
+          placeholder="Repita a senha"
+          autoComplete="new-password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-        ></input>
-        {erroSenha && <p>{erroSenha}</p>}
-        <button type="submit">Registrar</button>
-        {erro && <p>{erro}</p>}
+        />
+
+        {erroSenha && <p className="auth-erro">{erroSenha}</p>}
+        {erro && <p className="auth-erro">{erro}</p>}
+
+        <button type="submit" className="btn-primario">
+          Criar conta
+        </button>
       </form>
-    </>
+
+      <p className="auth-rodape">
+        Já tem conta? <Link to="/login">Entrar</Link>
+      </p>
+    </div>
   );
 }
 
