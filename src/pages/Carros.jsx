@@ -51,9 +51,17 @@ function Carros() {
     <>
       <h1>Coleção</h1>
       {colecao.length === 0 ? (
-        <dialog ref={modalRef}>
-          <p>Boas Vindas</p>
-          <button onClick={closeModal}>Fechar</button>
+        <dialog ref={modalRef} className="modal">
+          <h2>Sua garagem está vazia</h2>
+          <p>Registre seu primeiro carrinho: nome, cor e ano, e uma foto pra deixar ele com a sua cara.</p>
+          <div className="modal-acoes">
+            <button className="btn-secundario" onClick={closeModal}>
+              Agora não
+            </button>
+            <button className="btn-primario" onClick={closeModal}>
+              Registrar meu primeiro carrinho
+            </button>
+          </div>
         </dialog>
       ) : (
         <div className="grid">
