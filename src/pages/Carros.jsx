@@ -1,12 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, edit, remove, setCars } from "../store/slices/carSlice.js";
+
 import "./Carros.css";
 
 import api from "../services/api.js";
 
 function Carros() {
+  const modalRef = useRef(null);
   const dispatch = useDispatch();
+  const [carregando, setCarregando] = useState(true);
+  // const [modalState, setModalState]= useState(true); // true-false pra aberto/fechado?
+
+  const colecao = useSelector((state) => state.car.car);
+  const baseUrl = "http://localhost:3001";
+  console.log(colecao);
 
   // Passo A
   useEffect(() => {
@@ -16,42 +24,61 @@ function Carros() {
         dispatch(setCars(resposta.data.cars));
       } catch (e) {
         console.log(e);
+      } finally {
+        setCarregando(false);
       }
     }
 
     buscarCarro();
   }, []);
 
-  // Passo B
-  const colecao = useSelector((state) => state.car.car);
-  const baseUrl = "http://localhost:3001";
-  console.log(colecao);
+  // useEffect do Modal
+  useEffect(() => {
+    if (!carregando && colecao.length === 0) {
+      modalRef.current.showModal();
+    }
+  }, [carregando, colecao]);
+
+  if (carregando) {
+    return <p>Carregando...</p>;
+  }
+
+  function closeModal() {
+    modalRef.current.close();
+  }
 
   return (
     <>
       <h1>Coleção</h1>
-      <div className="grid">
-        {colecao.map((carro) => (
-          <div className="grid-item" key={carro.id}>
-            <img
-              src={
-                carro.photoUrl
-                  ? `${baseUrl}/uploads/${carro.photoUrl}`
-                  : "/wheel.svg"
-              }
-              alt={carro.name}
-            />
-            <div className="main-infos">
-              <h4>{carro.name}</h4>
-              <p>{carro.color}</p>
-              <p>{carro.year}</p>
+      {colecao.length === 0 ? (
+        <dialog ref={modalRef}>
+          <p>Boas Vindas</p>
+          <button onClick={closeModal}>Fechar</button>
+        </dialog>
+      ) : (
+        <div className="grid">
+          {colecao.map((carro) => (
+            <div className="grid-item" key={carro.id}>
+              <img
+                src={
+                  carro.photoUrl
+                    ? `${baseUrl}/uploads/${carro.photoUrl}`
+                    : "/wheel.svg"
+                }
+                alt={carro.name}
+              />
+              <div className="main-infos">
+                <h2>{carro.name}</h2>
+                <p>{carro.color}</p>
+                <p>{carro.year}</p>
+              </div>
+              {carro.collection && (
+                <p className="collection">{carro.collection}</p>
+              )}
             </div>
-            {carro.collection && (
-              <p className="collection">{carro.collection}</p>
-            )}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
