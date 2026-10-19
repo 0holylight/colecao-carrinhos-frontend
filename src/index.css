@@ -125,3 +125,12 @@ h1 {
   outline: 2px solid #ff8a80;
   outline-offset: 3px;
 }
+
+.btn-primario:disabled,
+.btn-secundario:disabled,
+.btn-perigo:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

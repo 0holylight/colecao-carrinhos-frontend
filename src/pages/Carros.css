@@ -180,3 +180,39 @@
   outline: 2px solid var(--cor-info);
   outline-offset: 2px;
 }
+
+/* ===== Topo da coleção ===== */
+.colecao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.colecao-topo > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.colecao-topo h1 {
+  margin: 0;
+  text-align: left;
+}
+
+.contador {
+  padding: 3px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cor-info);
+  border: 1px solid rgba(77, 163, 255, 0.4);
+  border-radius: 999px;
+}
+
+.colecao-topo .btn-primario {
+  padding: 11px 20px;
+}

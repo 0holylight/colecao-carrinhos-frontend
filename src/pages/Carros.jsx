@@ -71,7 +71,16 @@ function Carros() {
 
   return (
     <>
-      <h1>Coleção</h1>
+      <div className="colecao-topo">
+        <div>
+          <h1>Coleção</h1>
+          <span className="contador">{colecao.length}/25</span>
+        </div>  
+        <button className="btn-primario" disabled={colecao.length >= 25}>
+          + Adicionar carrinho
+        </button>
+      </div>
+
       {colecao.length === 0 ? (
         <dialog ref={modalRef} className="modal">
           <h2>Sua garagem está vazia</h2>
@@ -131,7 +140,10 @@ function Carros() {
       )}
       <dialog ref={excluirRef} className="modal" onClose={limparStateModal}>
         <h2>Deseja excluir o carrinho?</h2>
-        <p>Ao aceitar, você removerá o carro:  <strong>{carroSelecionado?.name}</strong></p>
+        <p>
+          Ao aceitar, você removerá o carro:{" "}
+          <strong>{carroSelecionado?.name}</strong>
+        </p>
         <div className="modal-acoes">
           <button
             className="btn-secundario"
