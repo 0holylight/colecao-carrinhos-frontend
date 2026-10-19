@@ -102,3 +102,26 @@ h1 {
   display: inline-block;
   text-decoration: none;
 }
+
+.btn-perigo {
+  font-family: var(--fonte);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  background: #d93025;
+  border: 1.5px solid #d93025;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-perigo:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(217, 48, 37, 0.55), 0 0 24px rgba(217, 48, 37, 0.25);
+}
+
+.btn-perigo:focus-visible {
+  outline: 2px solid #ff8a80;
+  outline-offset: 3px;
+}

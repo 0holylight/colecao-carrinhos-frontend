@@ -9,6 +9,7 @@
 
 /* ===== Card ===== */
 .grid-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--cor-card);
@@ -130,4 +131,52 @@
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.modal p strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+/* ===== Ações do card (editar / excluir) ===== */
+.card-acoes {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  display: flex;
+  gap: 6px;
+}
+
+.card-acoes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--cor-texto);
+  background: rgba(10, 15, 31, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.card-acoes button:hover {
+  border-color: var(--cor-info);
+  color: var(--cor-info);
+}
+
+.card-acoes button:last-child:hover {
+  border-color: #d93025;
+  color: #ff8a80;
+}
+
+.card-acoes button:focus-visible {
+  outline: 2px solid var(--cor-info);
+  outline-offset: 2px;
 }
