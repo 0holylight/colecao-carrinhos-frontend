@@ -8,9 +8,17 @@ import "./Carros.css";
 import api from "../services/api.js";
 
 function Carros() {
+  const criarRef = useRef(null);
   const excluirRef = useRef(null);
   const modalRef = useRef(null);
   const dispatch = useDispatch();
+
+  const [nome, setNome] = useState("");
+  const [cor, setCor] = useState("");
+  const [ano, setAno] = useState("");
+  const [collection, setCollection] = useState("");
+  const [photo, setPhoto] = useState(null);
+
   const [carregando, setCarregando] = useState(true);
   const [carroSelecionado, setCarroSelecionado] = useState(null);
 
@@ -54,9 +62,15 @@ function Carros() {
     excluirRef.current.showModal();
   }
 
+  function abrirModalCriar() {
+    criarRef.current.showModal();
+  }
+
   function limparStateModal() {
     setCarroSelecionado(null);
   }
+
+  const anoAtual = new Date().getFullYear();
 
   async function excluirCarro() {
     try {
@@ -75,8 +89,12 @@ function Carros() {
         <div>
           <h1>Coleção</h1>
           <span className="contador">{colecao.length}/25</span>
-        </div>  
-        <button className="btn-primario" disabled={colecao.length >= 25}>
+        </div>
+        <button
+          className="btn-primario"
+          disabled={colecao.length >= 25}
+          onClick={abrirModalCriar}
+        >
           + Adicionar carrinho
         </button>
       </div>
@@ -97,7 +115,10 @@ function Carros() {
             </button>
             <button
               className="btn-primario"
-              onClick={() => closeModal(modalRef)}
+              onClick={() => {
+                closeModal(modalRef);
+                abrirModalCriar();
+              }}
             >
               Registrar meu primeiro carrinho
             </button>
@@ -138,6 +159,72 @@ function Carros() {
           ))}
         </div>
       )}
+      <dialog ref={criarRef} className="modal">
+        <h2>Novo carrinho</h2>
+        <form onSubmit={(e) => e.preventDefault()} className="modal-form">
+          <label htmlFor="nome">Nome</label>
+          <input
+            required
+            id="nome"
+            type="text"
+            placeholder="Modelo do seu HotWheels"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+
+          <label htmlFor="cor">Cor</label>
+          <input
+            required
+            id="cor"
+            type="text"
+            placeholder="Cor do modelo"
+            value={cor}
+            onChange={(e) => setCor(e.target.value)}
+          />
+
+          <label htmlFor="ano">Ano</label>
+          <input
+            required
+            id="ano"
+            type="number"
+            placeholder="Ano de fabricação"
+            value={ano}
+            min={1968}
+            max={anoAtual}
+            onChange={(e) => setAno(e.target.value)}
+          />
+
+          <label htmlFor="collection">Coleção</label>
+          <input
+            id="collection"
+            type="text"
+            placeholder="Ex.: Faster Than Ever (Opcional)"
+            value={collection}
+            onChange={(e) => setCollection(e.target.value)}
+          />
+
+          <label htmlFor="foto">Foto</label>
+          <input
+            id="foto"
+            type="file"
+            onChange={(e) => setPhoto(e.target.files[0])}
+          />
+
+          <div className="modal-acoes">
+            <button
+              className="btn-secundario"
+              onClick={() => closeModal(criarRef)}
+              type="button"
+              accept="image/jpeg,image/png,image/gif"
+            >
+              Cancelar
+            </button>
+            <button className="btn-primario" type="submit">
+              Registrar carrinho
+            </button>
+          </div>
+        </form>
+      </dialog>
       <dialog ref={excluirRef} className="modal" onClose={limparStateModal}>
         <h2>Deseja excluir o carrinho?</h2>
         <p>
