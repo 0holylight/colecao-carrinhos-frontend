@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Home.css";
 
 function Home() {
+  const user = useSelector((state) => state.auth.user);
+  const checked = useSelector((state) => state.auth.checked);
+
+
   return (
     <div className="home">
       <section className="home-hero">
@@ -13,8 +18,18 @@ function Home() {
         </p>
 
         <div className="home-acoes">
-          <Link to="/login" className="btn-secundario">Entrar</Link>
-          <Link to="/register" className="btn-primario">Criar conta</Link>
+          {checked && ( user ? (
+            <>
+              <p className="home-boas-vindas">Boas-vindas de volta, {user.name}!</p>
+              <Link to="/carros" className="btn-primario">Minha garagem</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn-secundario">Entrar</Link>
+              <Link to="/register" className="btn-primario">Criar conta</Link>
+            </>
+          ))}          
+
         </div>
       </section>
 

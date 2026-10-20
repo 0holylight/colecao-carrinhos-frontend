@@ -123,3 +123,10 @@
   .home-sobre { padding: 28px 20px; }
   .home-destaques { grid-template-columns: 1fr; }
 }
+
+.home-boas-vindas {
+  flex-basis: 100%;
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  color: var(--cor-texto);
+}
