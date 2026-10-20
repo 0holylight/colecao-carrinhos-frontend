@@ -19,7 +19,7 @@ function Carros() {
   const [ano, setAno] = useState("");
   const [collection, setCollection] = useState("");
   const [photo, setPhoto] = useState(null);
-  const [carroEditando, setCarroEditando] = useState(null) 
+  const [carroEditando, setCarroEditando] = useState(null);
 
   const [carregando, setCarregando] = useState(true);
   const [carroSelecionado, setCarroSelecionado] = useState(null);
@@ -42,7 +42,7 @@ function Carros() {
     }
 
     buscarCarro();
-  }, []);
+  }, [dispatch]);
 
   // useEffect do Modal
   useEffect(() => {
@@ -74,7 +74,7 @@ function Carros() {
 
   function abrirModalEditar(carro) {
     setCarroEditando(carro);
-    setNome(carro.name ?? "") ;
+    setNome(carro.name ?? "");
     setCor(carro.color ?? "");
     setAno(carro.year ?? "");
     setCollection(carro.collection ?? "");
@@ -89,7 +89,7 @@ function Carros() {
     setCollection("");
     setPhoto(null);
     formRef.current.reset();
-    setCarroEditando.reset();
+    setCarroEditando(null);
   }
 
   const anoAtual = new Date().getFullYear();
@@ -189,11 +189,14 @@ function Carros() {
               />
               <h2>{carro.name}</h2>
               <div className="main-infos">
-                  <p>{carro.color}</p>
-                  <p>{carro.year}</p>
+                <p>{carro.color}</p>
+                <p>{carro.year}</p>
               </div>
               <div className="card-acoes">
-                <button onClick={() => abrirModalEditar(carro)}aria-label={`Editar ${carro.name}`}>
+                <button
+                  onClick={() => abrirModalEditar(carro)}
+                  aria-label={`Editar ${carro.name}`}
+                >
                   <Pencil size={16} />
                 </button>
                 <button
