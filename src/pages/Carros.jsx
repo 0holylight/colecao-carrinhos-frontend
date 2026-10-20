@@ -8,6 +8,7 @@ import "./Carros.css";
 import api from "../services/api.js";
 
 function Carros() {
+  const formRef = useRef(null);
   const criarRef = useRef(null);
   const excluirRef = useRef(null);
   const modalRef = useRef(null);
@@ -70,6 +71,15 @@ function Carros() {
     setCarroSelecionado(null);
   }
 
+  function resetForm() {
+    setNome("");
+    setCor("");
+    setAno("");
+    setCollection("");
+    setPhoto(null);
+    formRef.current.reset();
+  }
+
   const anoAtual = new Date().getFullYear();
 
   async function excluirCarro() {
@@ -80,6 +90,29 @@ function Carros() {
     } catch (e) {
       console.log(e);
       alert("Não foi possível excluir o carrinho, tente novamente.");
+    }
+  }
+
+  async function cadastrarCarro(e) {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+
+      formData.append("name", nome);
+      formData.append("color", cor);
+      formData.append("year", ano);
+      if (collection) formData.append("collection", collection);
+      if (photo) formData.append("photo", photo);
+
+      const resposta = await api.post("/carros", formData);
+      dispatch(register(resposta.data.car));
+      closeModal(criarRef);
+    } catch (e) {
+      console.log(e);
+      alert(
+        e?.response?.data?.message ||
+          "Não foi possível cadastrar o carrinho, tente novamente.",
+      );
     }
   }
 
@@ -136,10 +169,13 @@ function Carros() {
                 }
                 alt={carro.name}
               />
+              <h2>{carro.name}</h2>
               <div className="main-infos">
-                <h2>{carro.name}</h2>
-                <p>{carro.color}</p>
-                <p>{carro.year}</p>
+
+                <div className="main-infos">
+                  <p>{carro.color}</p>
+                  <p>{carro.year}</p>
+                </div>
               </div>
               <div className="card-acoes">
                 <button aria-label={`Editar ${carro.name}`}>
@@ -159,9 +195,9 @@ function Carros() {
           ))}
         </div>
       )}
-      <dialog ref={criarRef} className="modal">
+      <dialog ref={criarRef} className="modal" onClose={resetForm}>
         <h2>Novo carrinho</h2>
-        <form onSubmit={(e) => e.preventDefault()} className="modal-form">
+        <form onSubmit={cadastrarCarro} className="modal-form" ref={formRef}>
           <label htmlFor="nome">Nome</label>
           <input
             required
@@ -208,6 +244,7 @@ function Carros() {
             id="foto"
             type="file"
             onChange={(e) => setPhoto(e.target.files[0])}
+            accept="image/jpeg,image/png,image/gif"
           />
 
           <div className="modal-acoes">
@@ -215,7 +252,6 @@ function Carros() {
               className="btn-secundario"
               onClick={() => closeModal(criarRef)}
               type="button"
-              accept="image/jpeg,image/png,image/gif"
             >
               Cancelar
             </button>
