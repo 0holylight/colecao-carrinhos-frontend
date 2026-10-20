@@ -19,6 +19,7 @@ function Carros() {
   const [ano, setAno] = useState("");
   const [collection, setCollection] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [carroEditando, setCarroEditando] = useState(null) 
 
   const [carregando, setCarregando] = useState(true);
   const [carroSelecionado, setCarroSelecionado] = useState(null);
@@ -71,6 +72,16 @@ function Carros() {
     setCarroSelecionado(null);
   }
 
+  function abrirModalEditar(carro) {
+    setCarroEditando(carro);
+    setNome(carro.name ?? "") ;
+    setCor(carro.color ?? "");
+    setAno(carro.year ?? "");
+    setCollection(carro.collection ?? "");
+    setPhoto(null);
+    abrirModalCriar();
+  }
+
   function resetForm() {
     setNome("");
     setCor("");
@@ -78,6 +89,7 @@ function Carros() {
     setCollection("");
     setPhoto(null);
     formRef.current.reset();
+    setCarroEditando.reset();
   }
 
   const anoAtual = new Date().getFullYear();
@@ -93,7 +105,7 @@ function Carros() {
     }
   }
 
-  async function cadastrarCarro(e) {
+  async function salvarCarro(e) {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -104,8 +116,14 @@ function Carros() {
       if (collection) formData.append("collection", collection);
       if (photo) formData.append("photo", photo);
 
-      const resposta = await api.post("/carros", formData);
-      dispatch(register(resposta.data.car));
+      if (carroEditando) {
+        const resposta = await api.put(`/carros/${carroEditando.id}`, formData);
+        dispatch(edit(resposta.data.car));
+      } else {
+        const resposta = await api.post("/carros", formData);
+        dispatch(register(resposta.data.car));
+      }
+
       closeModal(criarRef);
     } catch (e) {
       console.log(e);
@@ -171,14 +189,11 @@ function Carros() {
               />
               <h2>{carro.name}</h2>
               <div className="main-infos">
-
-                <div className="main-infos">
                   <p>{carro.color}</p>
                   <p>{carro.year}</p>
-                </div>
               </div>
               <div className="card-acoes">
-                <button aria-label={`Editar ${carro.name}`}>
+                <button onClick={() => abrirModalEditar(carro)}aria-label={`Editar ${carro.name}`}>
                   <Pencil size={16} />
                 </button>
                 <button
@@ -196,8 +211,8 @@ function Carros() {
         </div>
       )}
       <dialog ref={criarRef} className="modal" onClose={resetForm}>
-        <h2>Novo carrinho</h2>
-        <form onSubmit={cadastrarCarro} className="modal-form" ref={formRef}>
+        <h2>{carroEditando ? "Editar carrinho" : "Novo carrinho"}</h2>
+        <form onSubmit={salvarCarro} className="modal-form" ref={formRef}>
           <label htmlFor="nome">Nome</label>
           <input
             required
@@ -239,7 +254,16 @@ function Carros() {
             onChange={(e) => setCollection(e.target.value)}
           />
 
-          <label htmlFor="foto">Foto</label>
+          <label htmlFor="foto">
+            {carroEditando ? "Trocar foto (opcional)" : "Foto"}
+          </label>
+          {carroEditando && carroEditando.photoUrl && (
+            <img
+              className="foto-atual"
+              src={`${baseUrl}/uploads/${carroEditando.photoUrl}`}
+              alt={`Foto atual de ${carroEditando.name}`}
+            />
+          )}
           <input
             id="foto"
             type="file"
@@ -256,7 +280,7 @@ function Carros() {
               Cancelar
             </button>
             <button className="btn-primario" type="submit">
-              Registrar carrinho
+              {carroEditando ? "Salvar alterações" : "Registrar carrinho"}
             </button>
           </div>
         </form>
