@@ -20,15 +20,14 @@ function Carros() {
   const [collection, setCollection] = useState("");
   const [photo, setPhoto] = useState(null);
   const [carroEditando, setCarroEditando] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
   const [carregando, setCarregando] = useState(true);
   const [carroSelecionado, setCarroSelecionado] = useState(null);
 
   const colecao = useSelector((state) => state.car.car);
   const baseUrl = "http://localhost:3001";
-  console.log(colecao);
 
-  // Passo A
   useEffect(() => {
     async function buscarCarro() {
       try {
@@ -44,7 +43,6 @@ function Carros() {
     buscarCarro();
   }, [dispatch]);
 
-  // useEffect do Modal
   useEffect(() => {
     if (!carregando && colecao.length === 0) {
       modalRef.current.showModal();
@@ -95,6 +93,7 @@ function Carros() {
   const anoAtual = new Date().getFullYear();
 
   async function excluirCarro() {
+    setEnviando(true)
     try {
       await api.delete(`/carros/${carroSelecionado.id}`);
       dispatch(remove(carroSelecionado));
@@ -102,11 +101,14 @@ function Carros() {
     } catch (e) {
       console.log(e);
       alert("Não foi possível excluir o carrinho, tente novamente.");
+    } finally {
+      setEnviando(false)
     }
   }
 
   async function salvarCarro(e) {
     e.preventDefault();
+    setEnviando(true);
     try {
       const formData = new FormData();
 
@@ -129,8 +131,10 @@ function Carros() {
       console.log(e);
       alert(
         e?.response?.data?.message ||
-          "Não foi possível cadastrar o carrinho, tente novamente.",
+          "Não foi possível salvar o carrinho, tente novamente.",
       );
+    } finally {
+      setEnviando(false);
     }
   }
 
@@ -282,8 +286,12 @@ function Carros() {
             >
               Cancelar
             </button>
-            <button className="btn-primario" type="submit">
-              {carroEditando ? "Salvar alterações" : "Registrar carrinho"}
+            <button className="btn-primario" type="submit" disabled={enviando}>
+              {enviando
+                ? "Salvando..."
+                : carroEditando
+                  ? "Salvar alterações"
+                  : "Registrar carrinho"}
             </button>
           </div>
         </form>
@@ -301,8 +309,10 @@ function Carros() {
           >
             Cancelar
           </button>
-          <button className="btn-perigo" onClick={excluirCarro}>
-            Excluir
+          <button className="btn-perigo" onClick={excluirCarro} disabled={enviando}>
+            {enviando 
+            ? "Excluindo..."
+            : "Excluir"}
           </button>
         </div>
       </dialog>
