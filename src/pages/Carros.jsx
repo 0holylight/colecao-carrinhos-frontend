@@ -26,7 +26,6 @@ function Carros() {
   const [carroSelecionado, setCarroSelecionado] = useState(null);
 
   const colecao = useSelector((state) => state.car.car);
-  const baseUrl = "http://localhost:3001";
 
   useEffect(() => {
     async function buscarCarro() {

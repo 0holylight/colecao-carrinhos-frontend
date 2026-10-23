@@ -1,11 +1,9 @@
-// Configuração do Axios
-
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:3001",
-  timeout: 5000,
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
+  timeout: 60000,
 });
 
-export default instance;
+export default api;
