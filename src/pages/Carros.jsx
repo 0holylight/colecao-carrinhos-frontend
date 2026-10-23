@@ -90,10 +90,13 @@ function Carros() {
     setCarroEditando(null);
   }
 
+  function fotoDoCarro(url) {
+    return url?.startsWith("http") ? url : "/wheel.svg";
+  }
   const anoAtual = new Date().getFullYear();
 
   async function excluirCarro() {
-    setEnviando(true)
+    setEnviando(true);
     try {
       await api.delete(`/carros/${carroSelecionado.id}`);
       dispatch(remove(carroSelecionado));
@@ -102,7 +105,7 @@ function Carros() {
       console.log(e);
       alert("Não foi possível excluir o carrinho, tente novamente.");
     } finally {
-      setEnviando(false)
+      setEnviando(false);
     }
   }
 
@@ -183,14 +186,7 @@ function Carros() {
         <div className="grid">
           {colecao.map((carro) => (
             <div className="grid-item" key={carro.id}>
-              <img
-                src={
-                  carro.photoUrl
-                    ? `${baseUrl}/uploads/${carro.photoUrl}`
-                    : "/wheel.svg"
-                }
-                alt={carro.name}
-              />
+              <img src={fotoDoCarro(carro.photoUrl)} alt={carro.name} />
               <h2>{carro.name}</h2>
               <div className="main-infos">
                 <p>{carro.color}</p>
@@ -267,7 +263,7 @@ function Carros() {
           {carroEditando && carroEditando.photoUrl && (
             <img
               className="foto-atual"
-              src={`${baseUrl}/uploads/${carroEditando.photoUrl}`}
+              src={fotoDoCarro(carroEditando.photoUrl)}
               alt={`Foto atual de ${carroEditando.name}`}
             />
           )}
@@ -309,10 +305,12 @@ function Carros() {
           >
             Cancelar
           </button>
-          <button className="btn-perigo" onClick={excluirCarro} disabled={enviando}>
-            {enviando 
-            ? "Excluindo..."
-            : "Excluir"}
+          <button
+            className="btn-perigo"
+            onClick={excluirCarro}
+            disabled={enviando}
+          >
+            {enviando ? "Excluindo..." : "Excluir"}
           </button>
         </div>
       </dialog>
