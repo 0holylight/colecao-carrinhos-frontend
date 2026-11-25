@@ -1,3 +1,5 @@
+<p align="right">🇧🇷 Português · <a href="README.en.md">🇺🇸 English</a></p>
+
 # 🏎️ Coleção de Carrinhos — Front-end
 
 Interface web da Coleção de Carrinhos, onde colecionadores de miniaturas cadastram e organizam sua coleção, com foto de cada peça.
